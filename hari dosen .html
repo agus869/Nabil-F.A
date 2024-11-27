@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Hari Dosen</title>
+    <style>
+        body {
+            font-family: "Times New Roman", Times, serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f3f4f6;
+            text-align: center;
+            color: #333;
+        }
+        .container {
+            margin: 20px auto;
+            max-width: 900px;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Heading dengan animasi */
+        h1 {
+            color: #007bff;
+            font-size: 2.5em;
+            margin: 20px 0;
+            position: relative;
+            animation: colorChange 4s infinite;
+            flex-basis: 100%;
+            text-align: center;
+        }
+
+        @keyframes colorChange {
+            0% { color: #007bff; }
+            25% { color: #ff5733; }
+            50% { color: #28a745; }
+            75% { color: #ffc107; }
+            100% { color: #007bff; }
+        }
+
+        /* Gambar (80% dari ukuran asli) dengan bingkai hitam */
+        .image {
+            width: 80%;
+            height: auto;
+            border-radius: 8px;
+            border: 5px solid black; /* Bingkai hitam di sekitar gambar */
+            flex-basis: 100%;
+        }
+
+        /* Teks credit di pojok kiri atas */
+        .credit {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 1em;
+            color: #555;
+            font-style: italic;
+            z-index: 10;
+        }
+
+        /* Puisi dalam kotak */
+        .poem {
+            font-size: 1.2em;
+            margin-top: 20px;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+            text-align: justify;
+            line-height: 1.6;
+            flex-basis: 100%;
+            padding: 20px;
+            background-color: #f8f9fa;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-top: 20px;
+            position: relative;
+        }
+
+        /* Animasi puisi dari atas ke bawah */
+        .poem-animation {
+            animation: poemMove 2s ease-in-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes poemMove {
+            0% {
+                opacity: 0;
+                top: -30%;
+            }
+            100% {
+                opacity: 1;
+                top: 0%;
+            }
+        }
+
+        .emoji-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .emoji {
+            font-size: 3em;
+            cursor: pointer;
+            transition: transform 0.3s;
+            margin-right: 10px;
+        }
+
+        .emoji:hover {
+            transform: scale(1.2); /* Membuat emoji sedikit membesar ketika di hover */
+        }
+
+        .caption {
+            font-size: 1.5em;
+            color: #007bff;
+            cursor: pointer;
+        }
+
+        /* Animasi untuk emoji love yang muncul dari banyak titik */
+        .love-animation {
+            position: absolute;
+            font-size: 2em;
+            animation: loveMove 4s ease-in-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes loveMove {
+            0% { opacity: 1; top: -10%; }
+            100% { opacity: 0; top: 100%; }
+        }
+
+        /* Responsif untuk layar kecil */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Teks credit -->
+        <div class="credit">By Nabil Fathin A</div>
+
+        <!-- Heading dengan animasi -->
+        <h1>Selamat Hari Dosen</h1>
+        
+        <!-- Gambar -->
+        <img src="Hari dosen.PNG" alt="Hari Dosen" class="image">
+        
+        <!-- Emoji Love dan Caption -->
+        <div class="emoji-container">
+            <div class="emoji" onclick="showPoem(); startLoveAnimation();">❤️</div>
+            <div class="caption" onclick="startLoveAnimation(); showPoem();">Klik di sini</div>
+        </div>
+
+        <!-- Puisi (Awalnya tersembunyi) -->
+        <div class="poem" id="poem">
+            <p>
+                Wahai dosen pembimbing jalan,<br>
+                Ilmu kau beri tanpa kenal batas,<br>
+                Membuka jendela dunia luas,<br>
+                Terang budi, bijak tak lekas.
+            </p>
+            <p>
+                Tak pernah letih dalam memberi ilmu,<br>
+                Tak peduli siapa yang menghalangimu,<br>
+                Di saat di luar sana banyak karir yang lebih baik menunggumu,<br>
+                Kau lebih memilih untuk menjadi seorang pemberi ilmu,<br>
+                Perjuanganmu akan selalu ada selama dunia ini masih berdiri,<br>
+                Lelah letihnya dunia telah engkau hadapi,<br>
+                Tapi ilmu yang engkau beri akan selalu abadi,<br>
+                Terima kasih telah membangun dan membimbing bibit-bibit bangsa yang berkualitas,<br>
+                Jangan letih dan menyerah untuk masa depan bangsa yang cerah,<br>
+                Dimanapun kalian berada, doa terbaik untuk kalian.
+            </p>
+        </div>
+
+        <!-- Tempat untuk animasi love -->
+        <div id="love-container"></div>
+    </div>
+
+    <script>
+        // Fungsi untuk menampilkan puisi ketika emoji love diklik
+        function showPoem() {
+            var poem = document.getElementById("poem");
+            poem.style.opacity = "1";  // Mengubah opacity menjadi 1 untuk menampilkan puisi
+            poem.classList.add("poem-animation");
+        }
+
+        // Fungsi untuk memulai animasi emoji love
+        function startLoveAnimation() {
+            const loveContainer = document.getElementById("love-container");
+
+            // Menghapus emoji love yang sebelumnya
+            loveContainer.innerHTML = '';
+
+            // Membuat banyak emoji love muncul secara acak di posisi atas
+            for (let i = 0; i < 30; i++) {  // Menambah jumlah love emoji
+                const loveEmoji = document.createElement("div");
+                loveEmoji.classList.add("love-animation");
+
+                // Mengatur posisi acak di layar (x: posisi horizontal, y: posisi vertikal)
+                const randomX = Math.random() * window.innerWidth;
+                const randomDelay = Math.random() * 2; // Delay acak agar efek lebih dinamis
+                loveEmoji.style.left = `${randomX}px`;
+                loveEmoji.style.animationDelay = `${randomDelay}s`;
+
+                loveEmoji.textContent = "❤️";  // Emoji love
+
+                loveContainer.appendChild(loveEmoji);
+            }
+        }
+    </script>
+</body>
+</html>
